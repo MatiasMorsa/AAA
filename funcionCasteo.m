@@ -6,7 +6,7 @@ function varRet = funcionCasteo (datos);
 
   contador = 0;
 
-  variableArray = "((1,-2),(3,2),(8,0))";
+  variableArray = datos;
 
   for i= 1:length(variableArray)
     if((variableArray(i) == "0")||(variableArray(i)== "1")||(variableArray(i)== "2")||(variableArray(i)== "3")||(variableArray(i)== "4")||(variableArray(i)== "5")||(variableArray(i)== "6")||(variableArray(i)== "7")||(variableArray(i)== "8")||(variableArray(i)== "9"))
