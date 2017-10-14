@@ -63,7 +63,8 @@ while (sel_menu_ppal!= 4)
                           volver_menu_ppal = 1;
                           volver_atras = 0;
                       otherwise
-                          graficarFuncion((comparar_aproximaciones(dims{1},1)),1);
+                          datos_casteados = funcionCasteo(dims{1});
+                          #graficarFuncion((calcular_aproximaciones(datos_casteados,1)),1);
                           volver_menu_ppal = 1;
                   endswitch
               endswitch
