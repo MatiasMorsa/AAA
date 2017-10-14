@@ -108,6 +108,7 @@ endfunction
 function retorno = sumalny(matriz)
   y = devolvery(matriz)
   
-
-  
+  arrayfun = (@log,y)
+  retorno = sumaVector(arrayfun)
+  return
 endfunction
