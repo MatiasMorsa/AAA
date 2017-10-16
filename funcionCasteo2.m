@@ -1,7 +1,7 @@
 
 
 
-function vectorRespuesta = funcionCasteo(entrada)
+function vectorRespuesta = funcionCasteo2(entrada)
 
   coordenadas_x = [];
   coordenadas_y = [];
@@ -29,7 +29,8 @@ function vectorRespuesta = funcionCasteo(entrada)
       endswitch
   
   endfor
-  vectorRespuesta = [coordenadas_x coordenadas_y];
+  vectorRespuesta = [coordenadas_x ; coordenadas_y];
+  vectorRespuesta =vectorRespuesta';
   return
 endfunction
   

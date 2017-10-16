@@ -1,10 +1,20 @@
 
+#recibe una matriz de la manera ([X] [Y]) y devuelve un vec 
+function ret = resolverEc(matriz)
+ 
+  matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))]
+  matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))]
+  
+  
+  ret = inv(matriz_A)* matriz_B
+  return
+endfunction
 
 function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion) 
   switch tipo_de_aproximacion
       #Recta de minimos cuadrados
       case 1
-        retValue = multiplicacionXY(matriz);
+        retValue = resolverEc(matriz)
         return
       return
       #Parabola de minimos cuadrados
@@ -112,3 +122,4 @@ function retorno = sumalny(matriz)
   retorno = sumaVector(arrayfun)
   return
 endfunction
+
