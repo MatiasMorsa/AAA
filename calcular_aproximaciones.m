@@ -1,20 +1,12 @@
 
-#recibe una matriz de la manera ([X] [Y]) y devuelve un vec 
-function ret = resolverEc(matriz)
- 
-  matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))]
-  matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))]
-  
-  
-  ret = inv(matriz_A)* matriz_B
-  return
-endfunction
 
-function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion) 
-  switch tipo_de_aproximacion
+#Esta funcion recibe una matriz y un tipo de aproximacion y devuleve los valores, a , b y c de la funcion;
+function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimales)
+  switch tipo_de_aproximacion;
       #Recta de minimos cuadrados
       case 1
-        retValue = resolverEc(matriz)
+        aproximacionMin = resolverEcMinimosCuadrados(matriz,decimales);
+        retValue = error1(matriz,aproximacionMin,decimales);
         return
       return
       #Parabola de minimos cuadrados
@@ -28,42 +20,69 @@ function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion)
   endswitch
 endfunction
 
+function retorno = error1(matriz,aprox,decimales)
+  retorno = 0;
+  matrizy= devolvery(matriz)
+  for i = 1:length(matriz)
+    retorno = retorno + ylineal(aprox,i) - matrizy(i)
+  endfor
+  retorno = round(retorno .* (10^decimales) )./ (10^decimales)
+  return
+endfunction
+ 
+#recibe una matriz de la manera ([X] [Y]) y devuelve un vector con los valores a y b
+function ret = resolverEcMinimosCuadrados(matriz,decimales)
+ 
+  matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
+  matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
+  
+  
+  ret = inv(matriz_A)* matriz_B;
+  ret = round(ret .* (10^decimales) )./ (10^decimales)
+  return
+endfunction
+
+#yLineal recibe una matriz y "x" y devuelve la funcion especificada en ese valor.
+function ret = ylineal(matriz,x)
+  
+  ret = matriz(1) * x + matriz (2)
+  return
+endfunction
 
 #sumaVector recibe un vector y devuelve un numero = la suma de sus valores
 function numero = sumaVector(vector)  
-  var = 0
+  var = 0;
   for i = 1:length(vector)
-    var = var + vector(i)
+    var = var + vector(i);
   endfor
-  numero = var
+  numero = var;
   return
 endfunction
 
 #sumaCuadrados recibe un vector y devuelve un numero  = la suma de los valores x^2
 function numero = sumaCuadrados(vector)
-  var = 0
+  var = 0;
   
   for i = 1:length(vector)
-    var = var + vector(i) * vector(i)
+    var = var + vector(i) * vector(i);
   endfor
-  numero = var
-  
+  numero = var;
   return
 endfunction
 
 #sumax recime una matriz de la manera [[x] [y]] y devuelve la suma de los valores x
 function numero = sumax(matriz_sumaX)
+
   matriz_sumaX = transpose( matriz_sumaX);
-  x = matriz_sumaX(1,:)
-  
-  numero = sumaVector(x)
+  x = matriz_sumaX(1,:);
+  numero = sumaVector(x);
   return
 endfunction
 
 #sumay recime una matriz de la manera [[x] [y]] y devuelve la suma de los valores x
 function numero = sumay(matriz_sumay)
-  matriz_sumay = devolvery(matriz_sumay) 
-  numero = sumaVector(y)
+  matriz_sumay = devolvery(matriz_sumay);
+  numero = sumaVector(y);
   return
 endfunction
 
@@ -71,7 +90,7 @@ endfunction
 function y = devolvery(matris)
 
   matris = transpose( matris);
-  y = matris(2,:)
+  y = matris(2,:);
   
   return 
 endfunction
@@ -80,7 +99,7 @@ endfunction
 function x = devolverx(matris)
 
   matris = transpose( matris);
-  x = matris(1,:)
+  x = matris(1,:);
   
   return 
 endfunction
@@ -88,27 +107,27 @@ endfunction
 #recibe una matriz [[X] [Y]] y devuelve un numero = suma de ( X * Y)
 function returnValue = multiplicacionXY (matrix)
 
-  x = devolverx(matrix)
-  y = devolvery(matrix) 
+  x = devolverx(matrix) ;
+  y = devolvery(matrix) ;
  
-  respu = x.*y
+  respu = x.*y ;
   
   #Devuelve una fila con la multiplicacion
-  returnValue = sumaVector(respu)
+  returnValue = sumaVector(respu);
   return 
 endfunction 
 
 #devuelve la mayorCoordenada del eje x , va a servir para graficar
 function retorno = mayorCoordenadaX(matrix)
-  x = devolverx(matrix)
-  retorno = max(x)
+  x = devolverx(matrix);
+  retorno = max(x);
   return
 endfunction
 
 #devuelve la menorCoordenada del eje x , va a servir para graficar
 function retorno = menorCoordenadaX(matrix)
-  x = devolverx(matrix)
-  retorno = min(x)
+  x = devolverx(matrix);
+  retorno = min(x);
   return
 endfunction
  
@@ -116,10 +135,10 @@ endfunction
 
 #recibe una matriz [[X] [Y]] y devuelve suma de ln de y
 function retorno = sumalny(matriz)
-  y = devolvery(matriz)
+  y = devolvery(matriz);
   
-  arrayfun = (@log,y)
-  retorno = sumaVector(arrayfun)
+  arrayfun = (@log,y);
+  retorno = sumaVector(arrayfun);
   return
 endfunction
 

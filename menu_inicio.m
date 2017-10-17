@@ -1,13 +1,14 @@
 
+#((1,5),(2,6),(3,9),(4,8),(6,10))
 
 #Cargo los packages que me van a servir despues
 pkg load control;
 pkg load signal;
 
 #Inicializo las variables de navegacion
-volver_atras = 0
-volver_menu_ppal = 1
-sel_menu_ppal = 0
+volver_atras = 0;
+volver_menu_ppal = 1;
+sel_menu_ppal = 0;
 
 
 #mensaje=msgbox("hola","bienvenido");
@@ -57,9 +58,9 @@ while (sel_menu_ppal!= 4)
                   sel_menu12 = menu("Seleccione una opcion","1) Ver el grafico","2) Ver el grafico y la \ndistribucion de puntos","3) Obtener detalle del \ncalculo\n"," - Volver atras -"," - Ir al menu principal - ");
                   switch sel_menu12
                       case 1
-                          datos_casteados = funcionCasteo2(dims{2});
+                          datos_casteados = funcionCasteo2(dims{2},dims{1});
                           disp(datos_casteados);
-                          aproximacion = calcular_aproximaciones(datos_casteados,sel_menu1);
+                          aproximacion = calcular_aproximaciones(datos_casteados,sel_menu1,dims{1});
                           #aproximacion = calcular_aproximaciones(datos_casteados,sel_menu1);
                           #graficarFuncion((calcular_aproximaciones(datos_casteados,1)),1);
                           volver_menu_ppal = 1;
@@ -83,9 +84,10 @@ while (sel_menu_ppal!= 4)
           disp('Opcion 3')
           limpiar_grafico();
           volver_menu_ppal = 1;
-#Capturo el error, al pedo pero bueno
+      case 4
+           #despedida=msgbox("Hasta Luego","Finalizar");
       otherwise
-          disp('Opcion incorrecta, por favor vuelva a seleccionar otra opcion')
+        disp('Opcion incorrecta, por favor vuelva a seleccionar otra opcion');
   endswitch
 endwhile
 

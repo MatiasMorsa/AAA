@@ -1,12 +1,12 @@
 
 
 
-function vectorRespuesta = funcionCasteo2(entrada)
+function vectorRespuesta = funcionCasteo2(entrada,decimales)
 
   coordenadas_x = [];
   coordenadas_y = [];
   count = 1;
-  contador = 0;;
+  contador = 0;
   
    for i= 1:length(entrada)
    
@@ -30,7 +30,8 @@ function vectorRespuesta = funcionCasteo2(entrada)
   
   endfor
   vectorRespuesta = [coordenadas_x ; coordenadas_y];
-  vectorRespuesta =vectorRespuesta';
+  vectorRespuesta = round(vectorRespuesta .* (10^decimales) )./ (10^decimales);
+  vectorRespuesta = vectorRespuesta';
   return
 endfunction
   
