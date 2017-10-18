@@ -29,7 +29,7 @@ function ret = resolverEcMinimosCuadrados(matriz)
   matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
   matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
   
-  ret = inv(matriz_A)* matriz_B;
+  ret = inv(matriz_A)* matriz_B
   return
 endfunction
 
@@ -43,8 +43,8 @@ function ret = elevar(i)
   if (i > 0)
     var = 10;
     while (z < str2num(i))
-      var = var *10
-      z=z+1
+      var = var *10;
+      z=z+1;
     endwhile
   else
     var = 1;
@@ -58,7 +58,7 @@ function retorno = error1(matriz,aprox,decimales)
   matrizy= devolvery(matriz);
   matrizx=devolverx(matriz);
   for i = 1:length(matriz);
-    retorno = retorno + ylineal(aprox,matrizx(i),decimales) - matrizy(i)
+    retorno = retorno + ylineal(aprox,matrizx(i),decimales) - matrizy(i);
   endfor
   retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
@@ -70,9 +70,9 @@ function retorno = error2(matriz,aprox,decimales)
   matrizy= devolvery(matriz);
   matrizx=devolverx(matriz);
   for i = 1:length(matriz);
-    retorno = retorno + (ylineal(aprox,matrizx(i),decimales) - matrizy(i)) ^ 2
+    retorno = retorno + (ylineal(aprox,matrizx(i),decimales) - matrizy(i)) ^ 2 ;
   endfor
-  retorno = round(retorno .* (10^decimales) )./ (10^decimales)
+  retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
 endfunction
 #}

@@ -17,8 +17,8 @@ function vectorRespuesta = funcionCasteo2(entrada,decimales)
   endfor
   variable = strsplit(datos,",");
   
-  for i = 1:length(variable);
-    num = str2double(variable(i));
+  for i = 1:length(variable)
+    num = str2double(variable(i))
     switch contador
         case 0
         coordenadas_x = [coordenadas_x num];
@@ -39,7 +39,7 @@ endfunction
  
 function booleano = esNumero(numero)
 
-  if ((numero == "0")||(numero == "1")||(numero== "2")||(numero== "3")||(numero== "4")||(numero== "5")||(numero== "6")||(numero== "7")||(numero== "8")||(numero== "9"))
+  if ((numero == "0")||(numero == ".")||(numero == "-")||(numero == "1")||(numero== "2")||(numero== "3")||(numero== "4")||(numero== "5")||(numero== "6")||(numero== "7")||(numero== "8")||(numero== "9"))
     booleano = 1;
   else
     booleano = 0;
