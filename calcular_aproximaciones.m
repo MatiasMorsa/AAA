@@ -1,16 +1,14 @@
 
-
 #Esta funcion recibe una matriz y un tipo de aproximacion y devuleve los valores, a , b y c de la funcion;
 function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimales)
   switch tipo_de_aproximacion;
       #Recta de minimos cuadrados
       case 1
-        disp(decimales);
-        calc = elevar(decimales)
-        disp(calc);
-        aux  = resolverEcMinimosCuadrados(matriz,decimales);
+        calc = elevar(decimales);
+        aux  = resolverEcMinimosCuadrados(matriz);
         aproximacionMin = round(aux.* (calc) )./ (calc);
         retValue = error1(matriz,aproximacionMin,decimales);
+        sarasa = error2(matriz,aproximacionMin,decimales);
         return
       return
       #Parabola de minimos cuadrados
@@ -24,6 +22,19 @@ function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimale
   endswitch
 endfunction
 
+#recibe una matriz de la manera ([X] [Y]) y devuelve un vector con los valores a y b
+function ret = resolverEcMinimosCuadrados(matriz)
+
+ 
+  matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
+  matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
+  
+  ret = inv(matriz_A)* matriz_B;
+  return
+endfunction
+
+
+#Tuve que hacer esta funcion para encontrar la solucion a un error
 function ret = elevar(i)
   var = 0;
   z=1;
@@ -38,7 +49,7 @@ function ret = elevar(i)
   else
     var = 1;
   endif
-  ret = var
+  ret = var;
   return
 endfunction
 
@@ -46,24 +57,27 @@ function retorno = error1(matriz,aprox,decimales)
   retorno = 0;
   matrizy= devolvery(matriz);
   matrizx=devolverx(matriz);
-  for i = 1:length(matriz)
+  for i = 1:length(matriz);
     retorno = retorno + ylineal(aprox,matrizx(i),decimales) - matrizy(i)
   endfor
   retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
 endfunction
- 
-#recibe una matriz de la manera ([X] [Y]) y devuelve un vector con los valores a y b
-function ret = resolverEcMinimosCuadrados(matriz,decimales)
 
-  dec = 10^decimales;
- 
-  matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
-  matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
-  
-  ret = inv(matriz_A)* matriz_B;
+
+function retorno = error2(matriz,aprox,decimales)
+  retorno = 0;
+  matrizy= devolvery(matriz);
+  matrizx=devolverx(matriz);
+  for i = 1:length(matriz);
+    retorno = retorno + (ylineal(aprox,matrizx(i),decimales) - matrizy(i)) ^ 2
+  endfor
+  retorno = round(retorno .* (10^decimales) )./ (10^decimales)
   return
 endfunction
+#}
+
+
 
 #yLineal recibe una matriz y "x" y devuelve la funcion especificada en ese valor.
 function ret = ylineal(matriz,x,decimales)
@@ -166,3 +180,4 @@ function retorno = sumalny(matriz)
   return
 endfunction
 
+ 
