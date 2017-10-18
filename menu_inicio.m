@@ -58,7 +58,7 @@ while (sel_menu_ppal!= 4)
                   sel_menu12 = menu("Seleccione una opcion","1) Ver el grafico","2) Ver el grafico y la \ndistribucion de puntos","3) Obtener detalle del \ncalculo\n"," - Volver atras -"," - Ir al menu principal - ");
                   switch sel_menu12
                       case 1
-                          datos_casteados = funcionCasteo2(dims{2},dims{1});
+                          datos_casteados = funcionCasteo2(dims{2},str2num(dims{1}));
                           disp(datos_casteados);
                           aproximacion = calcular_aproximaciones(datos_casteados,sel_menu1,dims{1});
                           #aproximacion = calcular_aproximaciones(datos_casteados,sel_menu1);

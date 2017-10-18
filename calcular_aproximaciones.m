@@ -5,7 +5,11 @@ function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimale
   switch tipo_de_aproximacion;
       #Recta de minimos cuadrados
       case 1
-        aproximacionMin = resolverEcMinimosCuadrados(matriz,decimales);
+        disp(decimales);
+        calc = elevar(decimales)
+        disp(calc);
+        aux  = resolverEcMinimosCuadrados(matriz,decimales);
+        aproximacionMin = round(aux.* (calc) )./ (calc);
         retValue = error1(matriz,aproximacionMin,decimales);
         return
       return
@@ -20,32 +24,52 @@ function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimale
   endswitch
 endfunction
 
+function ret = elevar(i)
+  var = 0;
+  z=1;
+  disp(i);
+  disp(str2num(i));
+  if (i > 0)
+    var = 10;
+    while (z < str2num(i))
+      var = var *10
+      z=z+1
+    endwhile
+  else
+    var = 1;
+  endif
+  ret = var
+  return
+endfunction
+
 function retorno = error1(matriz,aprox,decimales)
   retorno = 0;
-  matrizy= devolvery(matriz)
+  matrizy= devolvery(matriz);
+  matrizx=devolverx(matriz);
   for i = 1:length(matriz)
-    retorno = retorno + ylineal(aprox,i) - matrizy(i)
+    retorno = retorno + ylineal(aprox,matrizx(i),decimales) - matrizy(i)
   endfor
-  retorno = round(retorno .* (10^decimales) )./ (10^decimales)
+  retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
 endfunction
  
 #recibe una matriz de la manera ([X] [Y]) y devuelve un vector con los valores a y b
 function ret = resolverEcMinimosCuadrados(matriz,decimales)
+
+  dec = 10^decimales;
  
   matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
   matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
   
-  
   ret = inv(matriz_A)* matriz_B;
-  ret = round(ret .* (10^decimales) )./ (10^decimales)
   return
 endfunction
 
 #yLineal recibe una matriz y "x" y devuelve la funcion especificada en ese valor.
-function ret = ylineal(matriz,x)
+function ret = ylineal(matriz,x,decimales)
   
-  ret = matriz(1) * x + matriz (2)
+  ret = matriz(1) * x + matriz (2);
+  ret = round(ret.* (10^decimales) )./ (10^decimales);
   return
 endfunction
 
