@@ -1,25 +1,31 @@
 
 #Esta funcion recibe una matriz y un tipo de aproximacion y devuleve los valores, a , b y c de la funcion;
-function retValue = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimales)
+function funcion = calcular_aproximaciones(matriz,tipo_de_aproximacion,decimales,mostrar)
+
+  calc = elevar(decimales);
   switch tipo_de_aproximacion;
-      #Recta de minimos cuadrados
       case 1
-        calc = elevar(decimales);
-        aux  = resolverEcMinimosCuadrados(matriz);
-        aproximacionMin = round(aux.* (calc) )./ (calc);
-        retValue = error1(matriz,aproximacionMin,decimales);
-        sarasa = error2(matriz,aproximacionMin,decimales);
-        return
-      return
-      #Parabola de minimos cuadrados
+        #Recta de minimos cuadrados
+        funcion  = resolverEcMinimosCuadrados(matriz);
+        aproximacionMin = round(funcion.* (calc) )./ (calc);
+        err1 = error1aprox(matriz,aproximacionMin,decimales,1);
+        err2 = error2aprox(matriz,aproximacionMin,decimales,1);
       case 2
-      #Aproximacion exponencial
+      #Parabola de minimos cuadrados
       case 3
-      #Aproximacion potencial
+      #Aproximacion exponencial
+      aux = resolverEcMinimosCuadrados(matriz);
+      aux(2)= e^aux(2); 
+      aproximacionMin = round(aux.*(calc) )./ (calc);
+      err1 = error1aprox(matriz,aproximacionMin,decimales,3);
+      err2 = error1aprox(matriz,aproximacionMin,decimales,3);
       case 4
+      #Aproximacion potencial
+      case 5
       #Aproximacion hiperbola
-  
   endswitch
+  funcion = 1;
+  return
 endfunction
 
 #recibe una matriz de la manera ([X] [Y]) y devuelve un vector con los valores a y b
@@ -29,7 +35,7 @@ function ret = resolverEcMinimosCuadrados(matriz)
   matriz_A = [sumaCuadrados(devolverx(matriz)),sumaVector(devolverx(matriz));sumaVector(devolverx(matriz)),length(devolvery(matriz))];
   matriz_B = [sumaVector(multiplicacionXY(matriz));sumaVector(devolvery(matriz))];
   
-  ret = inv(matriz_A)* matriz_B
+  ret = inv(matriz_A)* matriz_B;
   return
 endfunction
 
@@ -53,36 +59,47 @@ function ret = elevar(i)
   return
 endfunction
 
-function retorno = error1(matriz,aprox,decimales)
+function retorno = error1aprox(matriz,aprox,decimales,tipo)
   retorno = 0;
   matrizy= devolvery(matriz);
   matrizx=devolverx(matriz);
   for i = 1:length(matriz);
-    retorno = retorno + ylineal(aprox,matrizx(i),decimales) - matrizy(i);
+    retorno = retorno + ylineal(aprox,matrizx(i),decimales,tipo) - matrizy(i);
   endfor
   retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
 endfunction
 
 
-function retorno = error2(matriz,aprox,decimales)
+function retorno = error2aprox(matriz,aprox,decimales,tipo)
   retorno = 0;
   matrizy= devolvery(matriz);
   matrizx=devolverx(matriz);
   for i = 1:length(matriz);
-    retorno = retorno + (ylineal(aprox,matrizx(i),decimales) - matrizy(i)) ^ 2 ;
+    retorno = retorno + (ylineal(aprox,matrizx(i),decimales,tipo) - matrizy(i)) ^ 2 ;
   endfor
   retorno = round(retorno .* (10^decimales) )./ (10^decimales);
   return
 endfunction
-#}
+
 
 
 
 #yLineal recibe una matriz y "x" y devuelve la funcion especificada en ese valor.
-function ret = ylineal(matriz,x,decimales)
+function ret = ylineal(matriz,x,decimales,tipo)
+  switch tipo
+    case 1 #aproximacion por recta de cuadrados minimos
+      ret = matriz(1) * x + matriz (2);
+    case 2 #aproximacion por parabola de cuadrados minimos
+      ret = matriz(1)* (x^2) + matriz(2) * x + matriz(3);
+    case 3 #aproximacion exponencial
+      ret = matriz(1)* (e^(matriz(2) * x) );
+    case 4 #aproximacion potencial
+      ret = matriz(2) * x^ matriz(1);
+    case 5 #aproxima hiperbola
+      ret = matriz (1) * x + matriz(2);
   
-  ret = matriz(1) * x + matriz (2);
+  endswitch
   ret = round(ret.* (10^decimales) )./ (10^decimales);
   return
 endfunction
@@ -181,3 +198,15 @@ function retorno = sumalny(matriz)
 endfunction
 
  
+function formatearSalida(listax,listay,tipofuncion,decimales)
+  matriz= char " i | xi | yi |xiyi | xi^2"
+  switch tipofuncion
+    case 1
+      for i = 1:length(listax)
+        
+        matriz[i] = strcat((mat2str(i))," | ",listax(i)," | ",listay(i)," | " ; #FAlta terminarla
+      endfor 
+   
+  endswitch
+
+endfunction
