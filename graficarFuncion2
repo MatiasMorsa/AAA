@@ -1,0 +1,73 @@
+
+#Esta funcion recibe una funcion y(intervalo) y 
+#una variable indicandole si debe graficar la funcion en una misma figura o en una nueva.
+#El intervalo que define el usuario se debe definir como intervalo = 0:0.1:10; por ejemplo 
+#la variable x de las funciones es el intervalo
+
+
+function  graficarFuncionAxel(coeficienteA,coeficienteB,tipoFuncion,intervalo,flagNueva)
+  if flagNueva == "si"
+   switch tipoFuncion
+   case "lineal"
+  funcionLineal(coeficienteA,coeficienteB,intervalo);
+   case "parabolica"
+   funcionParabolica(coeficienteA,coeficienteB,coeficienteC,intervalo);
+  case "exponencial"
+   funcionExponencial(coeficienteA,coeficienteB,intervalo);
+   case "hiperbolica"
+    funcionHiperbolica(coeficienteA,coeficienteB,intervalo);
+   case "potencial"
+    funcionPotencial(coeficienteA,coeficienteB,intervalo);
+   otherwise 
+   msgbox("Funcion incorrecta",'Error','error');
+   endswitch
+  return 
+endfunction
+
+
+function lineal = funcionLineal(coeficienteA,coeficienteB,intervalo)
+ lineal = (coeficienteA*(intervalo)) + coeficienteB;
+ plot(intervalo,lineal);
+ title("Funcion Lineal")
+ xlabel("Eje X");
+ ylabel("eje Y");
+ return
+ endfunction
+ 
+ function parabolica = funcionParabolica(coeficienteA,coeficienteB,coeficienteC,intervalo)   
+  parabolica = coeficienteA * ((intervalo).^2) + coeficienteB * (intervalo)+ coeficienteC;
+  plot(intervalo,parabolica);
+  title("Funcion Parabolica")
+ xlabel("Eje X");
+ ylabel("eje Y");
+  return 
+  endfunction
+ 
+ function exponencial = funcionExponencial(coeficienteA,coeficienteB,intervalo)
+ exponencial = coeficienteA * (e.^(coeficienteB*intervalo));
+ plot(intervalo,exponencial);
+ title("Funcion Exponencial")
+ xlabel("Eje X");
+ ylabel("eje Y");
+  return
+  endfunction
+  
+  function hiperbolica = funcionHiperbolica(coeficienteA,coeficienteB,intervalo)
+   hiperbolica = (coeficienteA * intervalo) / (coeficienteB + intervalo);
+   plot(intervalo,hiperbolica);
+   title("Funcion Hiperbolica")
+ xlabel("Eje X");
+ ylabel("eje Y");
+    return 
+    endfunction
+    
+    function potencial = funcionPotencial(coeficienteA,coeficienteB,intervalo)
+      potencial = (coeficienteB * intervalo).^ coeficienteA;
+       plot(intervalo,potencial);
+        title("Funcion Potencial")
+ xlabel("Eje X");
+ ylabel("eje Y");
+      return
+      endfunction
+      
+   
